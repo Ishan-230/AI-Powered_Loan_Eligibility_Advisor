@@ -88,7 +88,28 @@ Follow these steps to run the project locally.
 
 ## 2️⃣ Project Structure
 
-`ai-powered_loan_eligibility_advisor/ ├── Flask_app.py ├── model.pkl ├── serviceAccountKey.json ├── requirements.txt ├── .env ├── static/ │   ├── css/styles.css │   ├── js/ │   │   ├── firebase_auth.js │   │   ├── predict_form.js │   │   └── chatbot.js │   └── images/ ├── templates/ │   ├── layout.html │   ├── login.html │   ├── index.html │   ├── about.html │   ├── predict.html │   └── chatbot.html └── README.md`
+'ai-powered_loan_eligibility_advisor/
+├── Flask_app.py
+├── model.pkl
+├── serviceAccountKey.json
+├── requirements.txt
+├── .env
+├── static/
+│   ├── css/styles.css
+│   ├── js/
+│   │   ├── firebase_auth.js
+│   │   ├── predict_form.js
+│   │   └── chatbot.js
+│   └── images/
+├── templates/
+│   ├── layout.html
+│   ├── login.html
+│   ├── index.html
+│   ├── about.html
+│   ├── predict.html
+│   └── chatbot.html
+└── README.md'
+
 
 * * *
 
