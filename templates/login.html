@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    .auth-container {
+        max-width: 450px;
+        margin: 2rem auto;
+    }
+    .auth-form {
+        width: 100%;
+    }
+    .auth-title {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    .error-message {
+        color: #dc3545;
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        text-align: center;
+    }
+    .auth-switch {
+        text-align: center;
+        margin-top: 1.5rem;
+    }
+    .auth-switch a {
+        color: var(--primary-color);
+        font-weight: 500;
+        text-decoration: none;
+    }
+    .auth-switch a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="auth-container card">
+    <h1 class="auth-title">Welcome Back!</h1>
+    <p style="text-align: center; margin-bottom: 1.5rem; color: #555;">Please log in to access the Prediction and Chatbot tools.</p>
+    <form id="login-form" class="auth-form">
+        <div id="error-div" class="error-message hidden"></div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-block" id="login-btn">Login</button>
+    </form>
+    <div class="auth-switch">
+        <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+    </div>
+</div>
+
+<script>
+    // --- FIX: Wait for the DOM to be fully loaded ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const loginForm = document.getElementById('login-form');
+        const loginBtn = document.getElementById('login-btn');
+        const errorDiv = document.getElementById('error-div');
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            loginBtn.disabled = true;
+            loginBtn.innerText = "Logging in...";
+            errorDiv.classList.add('hidden');
+
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    window.location.href = "{{ url_for('home') }}";
+                })
+                .catch((error) => {
+                    errorDiv.innerText = error.message;
+                    errorDiv.classList.remove('hidden');
+                    loginBtn.disabled = false;
+                    loginBtn.innerText = "Login";
+                });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    /* This style will make the image look good */
+    .page-image {
+        width: 100%;
+        max-width: 600px; /* Prevents it from being too large */
+        display: block;
+        margin: 2rem auto; /* Centers the image */
+        border-radius: var(--card-radius);
+        box-shadow: var(--card-shadow);
+    }
+</style>
+
+<div class="card">
+    <h1>🚀 Loan Prediction System</h1>
+    <h3>📋 Welcome to the Loan Prediction System!</h3>
+    <p>This tool helps you predict whether your loan application will be approved or rejected based on a variety of personal and financial factors. Fill in your details and let the system predict your loan status with an accurate machine learning model.</p>
+    
+    <img src="{{ url_for('static', filename='loan.png') }}" alt="Loan Prediction System" class="page-image">
+    
+    <h3>🛠️ Project Overview</h3>
+    <p>
+        This project was developed as part of my To complete this project, you will need to provide financial details and personal information.
+        The system takes the user's input and processes it through a pre-trained model to deliver a prediction about the loan status. We used algorithms like <strong>Logistic Regression</strong> and <strong>Decision Trees</strong> for accurate predictions.
+    </p>
+</div>
+{% endblock %}

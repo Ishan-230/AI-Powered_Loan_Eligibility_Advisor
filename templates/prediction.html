@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    .result-container {
+        text-align: center;
+        max-width: 600px;
+        margin: 2rem auto;
+    }
+    .result-icon {
+        font-size: 5rem;
+    }
+    .result-title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    .result-text {
+        font-size: 1.25rem;
+        color: #555;
+        margin-bottom: 2rem;
+    }
+    
+    /* Conditional Styling */
+    {% if prediction_text == "Loan status is Yes" %}
+    .result-card {
+        border-top: 5px solid #28a745; /* Green */
+    }
+    .result-icon { color: #28a745; }
+    .result-title { color: #28a745; }
+    {% else %}
+    .result-card {
+        border-top: 5px solid #dc3545; /* Red */
+    }
+    .result-icon { color: #dc3545; }
+    .result-title { color: #dc3545; }
+    {% endif %}
+</style>
+
+<div class="card result-container result-card">
+    
+    {% if prediction_text == "Loan status is Yes" %}
+        <div class="result-icon">✅</div>
+        <h1 class="result-title">Loan Approved</h1>
+        <p class="result-text">Congratulations! Based on the details provided, your loan is likely to be approved.</p>
+    {% else %}
+        <div class="result-icon">❌</div>
+        <h1 class="result-title">Loan Rejected</h1>
+        <p class="result-text">Unfortunately, based on the details provided, your loan is not likely to be approved at this time.</p>
+    {% endif %}
+    
+    <a href="{{ url_for('prediction_form') }}" class="btn">Check Another Application</a>
+</div>
+{% endblock %}

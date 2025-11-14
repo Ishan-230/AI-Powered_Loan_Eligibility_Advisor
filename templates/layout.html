@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Loan Advisor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --primary-hover: #0056b3;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --light-grey: #e9e9eb;
+            --border-color: #dee2e6;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --card-radius: 12px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-menu a {
+            color: #555;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .nav-menu a#nav-logout:hover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        h1, h2, h3 {
+            color: #222;
+            font-weight: 600;
+            margin-top: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: #777;
+        }
+
+        /* General Form Styles */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-sizing: border-box; /* Important for 100% width */
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('home') }}" class="nav-logo">🏦 AI Loan Advisor</a>
+            <div class="nav-menu">
+                <a href="{{ url_for('home') }}" id="nav-home">Home</a>
+                <a href="{{ url_for('about') }}" id="nav-about">About</a>
+                <a href="{{ url_for('prediction_form') }}" id="nav-prediction" class="hidden">Prediction</a>
+                <a href="{{ url_for('chatbot') }}" id="nav-chatbot" class="hidden">Chatbot</a>
+                <a href="{{ url_for('login') }}" id="nav-login">Login</a>
+                <a href="{{ url_for('register') }}" id="nav-register">Register</a>
+                <a href="#" id="nav-logout" class="hidden" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AI Loan Advisor. All rights reserved.</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBx4wAqLIXQNADBI8IIpGwZ5Yi_tIEYbbQ",
+        authDomain: "tiles-visualizer-1351d.firebaseapp.com",
+        projectId: "tiles-visualizer-1351d",
+        storageBucket: "tiles-visualizer-1351d.firebasestorage.app",
+        messagingSenderId: "374008348970",
+        appId: "1:374008348970:web:3bd8bf2a2d1b3430a15e53"
+      };
+      
+      // Initialize Firebase
+      if (!firebase.apps.length) {
+          firebase.initializeApp(firebaseConfig);
+      }
+
+      // --- Auth State Management ---
+      const auth = firebase.auth();
+      
+      const navLogin = document.getElementById('nav-login');
+      const navRegister = document.getElementById('nav-register');
+      const navLogout = document.getElementById('nav-logout');
+      const navChatbot = document.getElementById('nav-chatbot');
+      const navPrediction = document.getElementById('nav-prediction');
+
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          navLogin.classList.add('hidden');
+          navRegister.classList.add('hidden');
+          navLogout.classList.remove('hidden');
+          navChatbot.classList.remove('hidden');
+          navPrediction.classList.remove('hidden');
+        } else {
+          navLogin.classList.remove('hidden');
+          navRegister.classList.remove('hidden');
+          navLogout.classList.add('hidden');
+          navChatbot.classList.add('hidden');
+          navPrediction.classList.add('hidden');
+        }
+      });
+
+      // Set active link (This is simple, no need to wait for DOM)
+      const links = document.querySelectorAll('.nav-menu a');
+      const currentPath = window.location.pathname;
+      links.forEach(link => {
+          if (link.getAttribute('href') === currentPath) {
+              link.classList.add('active');
+          }
+      });
+
+      // Logout function
+      function logout() {
+        auth.signOut().then(() => {
+          window.location.href = "{{ url_for('logout') }}";
+        }).catch((error) => {
+          console.error("Logout failed:", error);
+        });
+      }
+    </script>
+</body>
+</html>

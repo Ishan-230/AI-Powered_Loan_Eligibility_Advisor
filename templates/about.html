@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    /* This style will make the images look good */
+    .page-image {
+        width: 100%;
+        display: block;
+        margin-top: 1.5rem; /* Add space above the image */
+        border-radius: var(--card-radius);
+        box-shadow: var(--card-shadow);
+    }
+    /* This styles the caption */
+    figure {
+        margin: 1rem 0 2rem 0;
+        text-align: center;
+        color: #777;
+    }
+    figcaption {
+        font-style: italic;
+        margin-top: 0.5rem;
+    }
+</style>
+
+<div class="card">
+    <h1>📖 About Us</h1>
+    <p><strong>Our Mission</strong>: We aim to provide <strong>innovative, efficient, and easy-to-use</strong> financial tools that 
+                assist individuals in making better financial decisions. Our mission is to simplify 
+                complex loan application processes using advanced technology like <strong>Machine Learning</strong> and <strong>AI</strong>.</p>
+
+    <h3>🏗️ System Architecture</h3>
+    <p>
+        The <strong>Loan Prediction System</strong> architecture is designed to seamlessly collect user inputs, process them through a machine learning model, and deliver accurate predictions for loan approval. Here's a breakdown of the system components:
+    </p>
+    <ol>
+        <li><strong>User Interface (UI)</strong>: The front-end interface built using <strong>Flask</strong> allows users to input their personal and financial information.</li>
+        <li><strong>Data Preprocessing</strong>: Data entered by users is cleaned and transformed into numerical values, ensuring compatibility with the machine learning model.</li>
+        <li><strong>Machine Learning Model</strong>: The core of the system is a trained model (e.g., Random Forest, Logistic Regression), which predicts the likelihood of loan approval based on historical data.</li>
+        <li><strong>Prediction Engine</strong>: The system runs the model on the preprocessed data and returns the loan approval decision.</li>
+        <li><strong>Visualization & Output</strong>: The result is displayed to the user in a clear format.</li>
+    </ol>
+    
+    <figure>
+        <img src="{{ url_for('static', filename='system_architecture.png') }}" alt="System Architecture Diagram" class="page-image">
+        <figcaption>System Architecture Diagram</figcaption>
+    </figure>
+
+    <h3>📊 Project Activity Log</h3>
+    <p>
+        Throughout this project, we engaged in various key activities to contribute to the <strong>Loan Prediction System</strong> project:
+    </p>
+    <ol>
+        <li><strong>Data Collection</strong>: Gathered relevant data from past loan applicants.</li>
+        <li><strong>Data Cleaning</strong>: Handled missing values, outliers, and transformed categorical data.</li>
+        <li><strong>Model Selection</strong>: Experimented with various machine learning algorithms.</li>
+        <li><strong>Model Training & Optimization</strong>: Trained the model on historical data and fine-tuned hyperparameters.</li>
+        <li><strong>Deployment & Testing</strong>: Deployed the trained model into the Flask application and tested the system.</li>
+    </ol>
+
+    <figure>
+        <img src="{{ url_for('static', filename='Project Activity.png') }}" alt="Project Activity Diagram" class="page-image">
+        <figcaption>Project Activity Diagram</figcaption>
+    </figure>
+    
+    <hr>
+    <h3>🌐 Connect with us</h3>
+    <p>📧 Email: jishan2305@gmail.com</p>
+</div>
+{% endblock %}
