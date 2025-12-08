@@ -1,0 +1,11 @@
+Flask
+bcrypt
+google-generativeai
+joblib
+matplotlib
+numpy
+pandas
+python-dotenv
+scikit-learn
+seaborn
+streamlit
