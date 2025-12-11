@@ -6,7 +6,7 @@ import pickle
 import joblib
 from sklearn.tree import DecisionTreeClassifier
 
-genai.configure(api_key='AIzaSyDFz7tzvhOoTEgDqvYYJaeN8WfH7yJwns4')
+genai.configure(api_key='')
 
 def initialize_session_state():
     if "messages" not in st.session_state:
